@@ -1,0 +1,59 @@
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    // Method to insert a node at the beginning
+    public void insertAtBeginning(int newData) {
+        Node newNode = new Node(newData);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // Method to print the list
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    // Method to sort an array and insert into the linked list
+    public void createSortedLinkedList(int[] inputData) {
+        java.util.Arrays.sort(inputData);
+        for (int i = inputData.length - 1; i >= 0; i--) {
+            insertAtBeginning(inputData[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Sample input
+        String input1 = "10 4 6 3";
+        String input2 = "7 2 -1";
+
+        // Converting input strings to arrays of integers
+        int[] inputData1 = java.util.Arrays.stream(input1.split(" ")).mapToInt(Integer::parseInt).toArray();
+        int[] inputData2 = java.util.Arrays.stream(input2.split(" ")).mapToInt(Integer::parseInt).toArray();
+        
+        // Combine both inputs
+        int[] combinedInput = new int[inputData1.length + inputData2.length];
+        System.arraycopy(inputData1, 0, combinedInput, 0, inputData1.length);
+        System.arraycopy(inputData2, 0, combinedInput, inputData1.length, inputData2.length);
+
+        LinkedList linkedList = new LinkedList();
+        linkedList.createSortedLinkedList(combinedInput);
+
+        // Print the sorted linked list
+        linkedList.printList();
+    }
+}
